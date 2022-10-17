@@ -1,0 +1,9 @@
+import '../styles/global.css'
+import '../styles/main.css'
+
+// @ts-ignore
+function MyApp({ Component, pageProps }) {
+    return <Component {...pageProps} />
+}
+
+export default MyApp
