@@ -1,13 +1,52 @@
 package main
 
 import (
+	"GoWorld/api/config"
+	"github.com/labstack/echo/v4"
+	"github.com/swaggo/echo-swagger"
 	"net/http"
 	"time"
 
+	_ "GoWorld/api/docs"
+
 	"github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+
+	"github.com/labstack/echo/v4/middleware"
 )
+
+var cfg = config.GetConfig()
+
+func main() {
+	e := echo.New()
+
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: cfg.HTTP.CORS.AllowedOrigins,
+		AllowHeaders: cfg.HTTP.CORS.AllowedHeaders,
+		AllowMethods: cfg.HTTP.CORS.AllowedMethods,
+	}))
+
+	// @title Swagger Example API
+	// @version 1.0
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	// Login route
+	e.POST("/api/login", login)
+
+	// Unauthenticated route
+	e.GET("/api/unrestricted", accessible)
+
+	// Restricted group
+	r := e.Group("/api/restricted")
+	r.Use(middleware.JWT([]byte(cfg.AppConfig.JwtSecret)))
+	r.GET("", restricted)
+
+	e.Logger.Fatal(e.Start(":1323"))
+}
 
 func login(c echo.Context) error {
 	email := c.FormValue("email")
@@ -28,7 +67,7 @@ func login(c echo.Context) error {
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte("secret"))
+	t, err := token.SignedString([]byte(cfg.AppConfig.JwtSecret))
 	if err != nil {
 		return err
 	}
@@ -51,31 +90,4 @@ func restricted(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{
 		"message": "hello email address: " + email,
 	})
-}
-
-func main() {
-	e := echo.New()
-
-	// Middleware
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000"},
-		AllowHeaders: []string{echo.HeaderAuthorization, echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
-		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodOptions},
-	}))
-
-	// Login route
-	e.POST("/api/login", login)
-
-	// Unauthenticated route
-	e.GET("/api/unrestricted", accessible)
-
-	// Restricted group
-	r := e.Group("/api/restricted")
-	r.Use(middleware.JWT([]byte("secret")))
-	r.GET("", restricted)
-
-	e.Logger.Fatal(e.Start(":1323"))
 }
