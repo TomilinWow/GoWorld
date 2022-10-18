@@ -40,6 +40,7 @@ type Config struct {
 		Host     string `yaml:"host" env:"PSQL_HOST" env-required:"true"`
 		Port     string `yaml:"port" env:"PSQL_PORT" env-required:"true"`
 		Database string `yaml:"database" env:"PSQL_DATABASE" env-required:"true"`
+		DBType   string `yaml:"database-type" env:"PSQL_DATABASE_TYPE" env-required:"true"`
 	} `yaml:"postgresql"`
 }
 

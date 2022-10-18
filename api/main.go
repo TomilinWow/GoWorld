@@ -2,6 +2,8 @@ package main
 
 import (
 	"GoWorld/api/config"
+	"GoWorld/api/controller"
+	"GoWorld/api/storage"
 	"github.com/labstack/echo/v4"
 	"github.com/swaggo/echo-swagger"
 	"net/http"
@@ -19,6 +21,7 @@ var cfg = config.GetConfig()
 func main() {
 	e := echo.New()
 
+	storage.NewDb()
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -33,6 +36,9 @@ func main() {
 	// @version 1.0
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+
+	// Get User
+	e.GET("/user", controller.GetUser)
 
 	// Login route
 	e.POST("/api/login", login)

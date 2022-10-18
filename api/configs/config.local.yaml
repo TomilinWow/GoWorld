@@ -39,3 +39,4 @@ postgresql:
   username: admin
   password: admin
   database: go_world
+  database-type: postgres
