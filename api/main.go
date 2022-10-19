@@ -3,13 +3,11 @@ package main
 import (
 	"GoWorld/api/config"
 	"GoWorld/api/controller"
+	_ "GoWorld/api/docs"
 	"GoWorld/api/storage"
 	"github.com/labstack/echo/v4"
 	"github.com/swaggo/echo-swagger"
 	"net/http"
-	"time"
-
-	_ "GoWorld/api/docs"
 
 	"github.com/dgrijalva/jwt-go"
 
@@ -17,6 +15,16 @@ import (
 )
 
 var cfg = config.GetConfig()
+
+// @title           GoWorld API
+// @version         1.0
+// @description     Api for GoWorld.
+
+// @contact.name   Zhdanov Anton
+// @contact.email  zhdanov447@gmail.com
+
+// @host      localhost:1323
+// @BasePath  /api/
 
 func main() {
 	e := echo.New()
@@ -32,16 +40,11 @@ func main() {
 		AllowMethods: cfg.HTTP.CORS.AllowedMethods,
 	}))
 
-	// @title Swagger Example API
-	// @version 1.0
+	e.GET("/api/swagger/*", echoSwagger.WrapHandler)
 
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.POST("/api/user/login", controller.CheckLoginUser)
 
-	// Get User
-	e.GET("/user", controller.GetUser)
-
-	// Login route
-	e.POST("/api/login", login)
+	e.POST("/api/user/register", controller.RegisterUser)
 
 	// Unauthenticated route
 	e.GET("/api/unrestricted", accessible)
@@ -52,35 +55,6 @@ func main() {
 	r.GET("", restricted)
 
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-func login(c echo.Context) error {
-	email := c.FormValue("email")
-	password := c.FormValue("password")
-
-	// Throws unauthorized error
-	if email != "rickety_cricket@example.com" || password != "shhh!" {
-		return echo.ErrUnauthorized
-	}
-
-	// Create token
-	token := jwt.New(jwt.SigningMethodHS256)
-
-	// Set claims
-	claims := token.Claims.(jwt.MapClaims)
-	claims["email"] = "rickety_cricket@example.com"
-	claims["admin"] = true
-	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-
-	// Generate encoded token and send it as response.
-	t, err := token.SignedString([]byte(cfg.AppConfig.JwtSecret))
-	if err != nil {
-		return err
-	}
-
-	return c.JSON(http.StatusOK, map[string]string{
-		"token": t,
-	})
 }
 
 func accessible(c echo.Context) error {

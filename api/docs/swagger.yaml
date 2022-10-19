@@ -1,16 +1,107 @@
-basePath: /v2
-host: petstore.swagger.io
+basePath: /api/
+definitions:
+  model.User:
+    properties:
+      email:
+        type: string
+      exp_value:
+        type: integer
+      first-name:
+        type: string
+      id:
+        type: string
+      last-name:
+        type: string
+      password:
+        type: string
+      phone-number:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:1323
 info:
   contact:
-    email: support@swagger.io
-    name: API Support
-    url: http://www.swagger.io/support
-  description: This is a sample server Petstore server.
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: http://swagger.io/terms/
-  title: Swagger Example API
+    email: zhdanov447@gmail.com
+    name: Zhdanov Anton
+  description: Api for GoWorld.
+  title: GoWorld API
   version: "1.0"
-paths: {}
+paths:
+  /api/user/login:
+    post:
+      consumes:
+      - application/json
+      description: Проверят данные входа и возвращает юзера и jwt при успехе
+      parameters:
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "409":
+          description: Conflict
+      summary: get and check user by ID
+      tags:
+      - user
+  /api/user/register:
+    post:
+      consumes:
+      - application/json
+      description: Регистрирует юзера
+      parameters:
+      - description: first_name
+        in: path
+        name: first_name
+        required: true
+        type: string
+      - description: last_name
+        in: path
+        name: last_name
+        required: true
+        type: string
+      - description: phone_number
+        in: path
+        name: phone_number
+        required: true
+        type: integer
+      - description: email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: username
+        in: path
+        name: username
+        required: true
+        type: string
+      - description: password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "403":
+          description: Forbidden
+      summary: register user
+      tags:
+      - user
 swagger: "2.0"
