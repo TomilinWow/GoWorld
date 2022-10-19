@@ -2,7 +2,7 @@
 
 ### Как запустить:
 1. go mod tidy (в папке api) установить и скачать все зависимости
-2. go run main.go ( в папке api ) запускает приложение на http://localhost:1323
+2. go run main.go ( в папке api ) запускает приложение на http://localhost:1323 или go run .\api\main.go ( из рут папки )
 
 ### Поянения по коду:
 - Все endpoint описаны по адрессу  /swagger/* 
