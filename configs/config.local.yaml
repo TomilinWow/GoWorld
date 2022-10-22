@@ -34,9 +34,9 @@ http:
       - "Content-Disposition"
 
 postgresql:
-  host: localhost
+  host: 0.0.0.0
   port: 5434
-  username: postgres
+  username: admin
   password: admin
   database: go_world
   database-type: postgres
