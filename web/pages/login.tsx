@@ -32,7 +32,6 @@ function Page() {
     };
 
     return <>
-        {error ? <p>Error: {error}</p> : null}
         <main className="flex items-center justify-center h-screen bg-slate-300">
             <form onSubmit={handleSubmit}>
                 <div className=" rounded-3xl bg-slate-200  shadow-lg sahdow-slate-500/100 w-96  p-6">
@@ -62,6 +61,7 @@ function Page() {
                         </div>
                     </div>
                 </div>
+                {error ? error : null}
             </form>
         </main>
     </>

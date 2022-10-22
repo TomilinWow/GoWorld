@@ -11,7 +11,7 @@ export const COOKIES = {
 
 export async function login(inputs: LoginInputs): Promise<string | void> {
   const data = new URLSearchParams(inputs);
-  const res: any = await post("/api/login", data).catch(catchAxiosError);
+  const res: any = await post("/api/user/login", data).catch(catchAxiosError);
   if (res.error) {
     return res.error;
   } else if (!res.data || !res.data.token) {

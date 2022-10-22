@@ -7,7 +7,9 @@ type Props = {
 }
 
 function Page({message}: Props) {
+  console.log(message)
   return <>
+
     <Login/>
   </>;
 }
