@@ -5,16 +5,12 @@ import (
 	"GoWorld/api/controller"
 	_ "GoWorld/api/docs"
 	"GoWorld/api/storage"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
-	"github.com/swaggo/echo-swagger"
-	"net/http"
-
-	"github.com/dgrijalva/jwt-go"
-
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
+	"net/http"
 )
-
-var cfg = config.GetConfig()
 
 // @title           GoWorld API
 // @version         1.0
@@ -25,6 +21,17 @@ var cfg = config.GetConfig()
 
 // @host      localhost:1323
 // @BasePath  /api/
+
+var cfg = config.GetConfig()
+
+func restricted(c echo.Context) error {
+	user := c.Get("user").(*jwt.Token)
+	claims := user.Claims.(jwt.MapClaims)
+	email := claims["email"].(string)
+	return c.JSON(http.StatusOK, map[string]string{
+		"message": "jwt is valid \n" + email,
+	})
+}
 
 func main() {
 	e := echo.New()
@@ -40,34 +47,15 @@ func main() {
 		AllowMethods: cfg.HTTP.CORS.AllowedMethods,
 	}))
 
-	e.GET("/api/swagger/*", echoSwagger.WrapHandler)
-
 	e.POST("/api/user/login", controller.CheckLoginUser)
 
 	e.POST("/api/user/register", controller.RegisterUser)
 
-	// Unauthenticated route
-	e.GET("/api/unrestricted", accessible)
-
 	// Restricted group
-	r := e.Group("/api/restricted")
+	r := e.Group("/api/auth")
 	r.Use(middleware.JWT([]byte(cfg.AppConfig.JwtSecret)))
 	r.GET("", restricted)
+	r.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	e.Logger.Fatal(e.Start(":1323"))
-}
-
-func accessible(c echo.Context) error {
-	return c.JSON(http.StatusOK, map[string]string{
-		"message": "Success! The status is 200",
-	})
-}
-
-func restricted(c echo.Context) error {
-	user := c.Get("user").(*jwt.Token)
-	claims := user.Claims.(jwt.MapClaims)
-	email := claims["email"].(string)
-	return c.JSON(http.StatusOK, map[string]string{
-		"message": "hello email address: " + email,
-	})
 }

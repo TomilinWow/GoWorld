@@ -48,7 +48,7 @@ CREATE TABLE public.users
         "id" SERIAL PRIMARY KEY,
         "first_name" varchar not null,
         "last_name" varchar not null,
-        "phone_number" varchar not null,
+        "phone_number" INTEGER not null,
         "email" varchar not null,
         "username" varchar not null,
         "password" varchar not null,
@@ -96,8 +96,8 @@ CREATE TABLE public.common_promo
     "city_id" INTEGER REFERENCES public.city (id)
 );
 
-INSERT INTO public.city (city_name, city_coordinate) values ('СПБ','23');
-INSERT INTO public.city (city_name, city_coordinate) values ('МСК','53');
+-- INSERT INTO public.city (city_name, city_coordinate) values ('СПБ','23');
+-- INSERT INTO public.city (city_name, city_coordinate) values ('МСК','53');
 -- INSERT INTO public.user (email,username,password,city_id) values ('emaiasd@email.ru','useasdser','dsadasd',1);
 INSERT INTO public.users (first_name,last_name,phone_number,email,username,password,exp_value) values ('Антон','Жданов','79132895233','zhdanov@mail.ru','antosa123','parolanton','0');
 

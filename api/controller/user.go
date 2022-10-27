@@ -68,7 +68,7 @@ func CheckLoginUser(c echo.Context) error {
 // @Produce     json
 // @Param       first_name path string true "first_name"
 // @param 		last_name path string true "last_name"
-// @param 		phone_number path int  true "phone_number"
+// @param 		phone_number path varchar  true "phone_number"
 // @param 		email path string true "email"
 // @param 		username path string true "username"
 // @param 		password path string true "password"
