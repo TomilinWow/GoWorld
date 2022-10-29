@@ -1,17 +1,8 @@
 BEGIN;
 
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = ON;
-SET check_function_bodies = FALSE;
-SET client_min_massages = WARNING;
-SET search_path = public, extensionsl;
-SET default_tablespace = '';
-SET default_with_oids = FALSE;
-
 -- EXTENSIONS --
 
-    CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 -- TABLES --
 CREATE TABLE public.city
@@ -48,7 +39,7 @@ CREATE TABLE public.users
         "id" SERIAL PRIMARY KEY,
         "first_name" varchar not null,
         "last_name" varchar not null,
-        "phone_number" INTEGER not null,
+        "phone_number" varchar not null,
         "email" varchar not null,
         "username" varchar not null,
         "password" varchar not null,
