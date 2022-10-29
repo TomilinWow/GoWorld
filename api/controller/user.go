@@ -47,14 +47,11 @@ func CheckLoginUser(c echo.Context) error {
 			return err
 		}
 
-		err = c.JSON(http.StatusOK, map[string]string{
+		return c.JSON(http.StatusOK, map[string]string{
 			"jwt": t,
 		})
-		if err != nil {
-			return err
-		}
 
-		return c.JSON(http.StatusOK, user)
+		//return c.JSON(http.StatusOK, user)
 	}
 
 	return c.JSON(http.StatusConflict, "Invalid Username or Password")
