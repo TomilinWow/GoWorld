@@ -2,7 +2,7 @@ import React from "react"
 import {AuthProps, PrivateRoute} from "../components/PrivateRoute";
 import {get} from "../services/rest_service";
 import {Layout} from "../components/Layout/Layout";
-import Home from "../components/Pages/Home";
+import Operations from "../components/Pages/Operations";
 
 type Props = AuthProps & {
     message: string
@@ -11,7 +11,7 @@ type Props = AuthProps & {
 function Page(props: Props) {
 
     return <Layout>
-        <Home/>
+        <Operations/>
     </Layout>
 
 }

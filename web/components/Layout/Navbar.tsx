@@ -1,0 +1,100 @@
+import React, {FC, useEffect, useState} from 'react';
+import {
+    AdjustmentsHorizontalIcon, ArrowLeftOnRectangleIcon,
+    ArrowSmallLeftIcon,
+    ChartBarIcon,
+    CpuChipIcon,
+    FaceSmileIcon
+} from "@heroicons/react/24/solid";
+import Cookie from "js-cookie";
+import {COOKIES} from "../../services/login_service";
+import {useRouter} from "next/router";
+import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {setCurrentPage} from "../../store/slices/page/pageSlice";
+import {GetStaticProps} from "next";
+
+const menus = [
+    {id: 0, title: "Dashboard", link: "/dashboard", icon: <AdjustmentsHorizontalIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 1, title: "Статистика", link: "/statistics", icon: <ChartBarIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 2, title: "Операции", link: "/operations", icon: <CpuChipIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 3, title: "Выйти", link: "/login", icon: <ArrowLeftOnRectangleIcon className="h-6 w-6 bg-light-white"/>, gap: true },
+];
+
+interface NavbarProps {
+
+}
+
+const Navbar:FC<NavbarProps> = () => {
+    const [open, setOpen] = useState(true);
+    const router = useRouter()
+    let currentPage = useAppSelector((state) => state.page.currentPage)
+    const dispatch = useAppDispatch()
+
+
+    const logout = async () => {
+        Cookie.remove(COOKIES.authToken);
+        dispatch(setCurrentPage(null))
+        await router.push("/login");
+    };
+
+    return (
+        <div className="flex">
+            <div
+                className={` ${
+                    open ? "w-72" : "w-20 "
+                } bg-yellow-gun h-screen p-5  pt-8 relative duration-300`}
+            >
+                <div>
+                    <ArrowSmallLeftIcon className={`absolute cursor-pointer -right-3 top-10 w-6 h-6 border-dark-purple
+                    border-2 rounded-full ${!open && "rotate-180"}`} onClick={() => setOpen(!open)} >
+
+                    </ArrowSmallLeftIcon>
+
+                </div>
+
+
+                <div className="flex gap-x-4 items-center">
+                    <FaceSmileIcon className={`cursor-pointer duration-500 h-10 w-10 bg-yellow-200 rounded-md ${
+                        open && "rotate-[360deg]"
+                    }`}/>
+                    {open
+                        ?  <div>
+                            <h1 className={`font-medium font-mono text-black text-2xl font-bold`}>
+                                StreetFamily
+                            </h1>
+                        </div>
+                        : null
+                    }
+
+                </div>
+                <ul className="pt-6">
+                    {menus.map((Menu, index) => (
+                        <li
+                            key={index}
+                            className={`flex  rounded-md p-2 cursor-pointer text-black hover:bg-primary text-sm items-center gap-x-4 
+                            ${Menu.gap ? "mt-9" : "mt-2"} ${
+                                index === currentPage && "bg-slate-50"
+                            } `}
+                            onClick={() => {
+                                if (Menu.title === 'Выйти') logout()
+                                else {
+                                    dispatch(setCurrentPage(Menu.id))
+                                    router.push(Menu.link)
+                                }
+                            }}
+                        >
+                            {Menu.icon}
+                            <span className={`${!open && "hidden"} origin-left hover:text-slate-600 duration-200 text-black text-sm`}>
+                                {Menu.title}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default Navbar;
+
+

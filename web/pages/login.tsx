@@ -50,7 +50,7 @@ function Page() {
                     <input className="rounded-3xl mb-6" id="remember" type="checkbox"/>
                     <label className="text-gray-700 hover:text-white-700" htmlFor="remember">Remember </label>
                     <button
-                            className=" cursor-pointer  rounded-3xl bg-slate-500 w-full text-gray-100 py-2 rounded hover:bg-slate-700 transition-colors"
+                            className=" cursor-pointer  rounded-3xl bg-slate-500 w-full text-gray-100 py-2 rounded group-hover:bg-slate-500 transition-colors"
                             type="submit">Login
                     </button>
                     <div className="my-4">

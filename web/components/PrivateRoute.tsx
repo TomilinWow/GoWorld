@@ -8,7 +8,7 @@ export type AuthProps = {
   auth: AuthToken
 }
 
-export function privateRoute(WrappedComponent: any) {
+export function PrivateRoute(WrappedComponent: any) {
   return class extends Component<AuthProps> {
     static async getInitialProps(ctx: any) {
       const token = ServerCookie(ctx)[COOKIES.authToken];

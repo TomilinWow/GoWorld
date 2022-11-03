@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import Link from "next/link";
-import {login} from "../services/login_service";
-import {signup} from "../services/signup_service";
+import {signup} from "../../services/signup_service";
 
 
 

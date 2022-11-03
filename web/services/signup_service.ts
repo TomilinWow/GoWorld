@@ -3,7 +3,7 @@ import {post} from "./rest_service";
 import {catchAxiosError} from "./error";
 import Cookie from "js-cookie";
 import Router from "next/router";
-import {SignupFormInputs} from "../components/SignupForm";
+import {SignupFormInputs} from "../components/Form/SignupForm";
 
 
 export const COOKIES = {

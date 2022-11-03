@@ -11,13 +11,17 @@
   "author": "Jason Raimondi <jason@raimondi.us>",
   "license": "MIT",
   "dependencies": {
+    "@heroicons/react": "^2.0.13",
+    "@reduxjs/toolkit": "^1.8.6",
+    "@types/react-redux": "^7.1.24",
     "axios": "^0.21.1",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",
     "next": "^12.3.1",
     "next-cookies": "^2.0.3",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^8.0.4"
   },
   "devDependencies": {
     "@types/js-cookie": "^2.2.6",
