@@ -14,7 +14,7 @@ export async function login(inputs: LoginInputs): Promise<string | void> {
   let res: any = await post("/api/user/login", data).catch(catchAxiosError);
   if (res.error) {
     return res.error;
-  } else if (!res || !res.data.jwt) {
+  } else if (!res || !res?.data?.jwt) {
     return "Something went wrong!";
   }
   const { jwt } = res.data;
