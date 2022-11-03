@@ -2,7 +2,7 @@ import React from "react"
 import {AuthProps, PrivateRoute} from "../components/PrivateRoute";
 import {get} from "../services/rest_service";
 import {Layout} from "../components/Layout/Layout";
-import Dashboard from "../components/Pages/Dashboard";
+import Dashboard from "../components/Pages/Dashboard/Dashboard";
 
 type Props = AuthProps & {
     message: string

@@ -1,11 +1,29 @@
-# client Nextjs
+# Next.js authorization example including private route protection
 
-### Как запустить:
-1. Скачать/склонировать репозиторий
-2. npm install (в папке web)
-3. npm run dev (в папке web) - запускает приложение на http://localhost:3000
+https://jasonraimondi.com/posts/create-a-secured-rest-api-for-a-next-js-application-using-jwt-and-golang/
 
-### Поянения по коду:
-- post-запрос на вход в приложение (почта / пароль) "http://localhost:1323/api/login" --> находится в services/login_service.ts
-- get-запрос обращение на неограниченную/открытую конечную точку "http://localhost:1323/api/unrestricted" --> находится в pages/index.tsx
-- get-запрос обращение к ограниченой конечной точке с защитой промежуточного программного обеспечения JWT (проверка) "http://localhost:1323/api/restricted" --> находится в pages/home.tsx
+
+```bash
+git clone git@github.com:jasonraimondi/nextjs-jwt-example.git
+cd nextjs-jwt-example
+```
+
+
+```bash
+go run ./api/main.go
+
+   ____    __
+  / __/___/ /  ___
+ / _// __/ _ \/ _ \
+/___/\__/_//_/\___/ v3.3.10-dev
+High performance, minimalist Go web framework
+https://echo.labstack.com
+____________________________________O/_______
+                                    O\
+⇨ http server started on [::]:1323
+```
+
+```bash
+cd web
+npm run dev
+```

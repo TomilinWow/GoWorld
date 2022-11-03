@@ -84,7 +84,7 @@ export const SignupForm = () => {
                     </button>
                     <div className="my-4">
                         <Link href="/login">
-                            <a>Have account?</a>
+                            Have account?
                         </Link>
                     </div>
                 </div>

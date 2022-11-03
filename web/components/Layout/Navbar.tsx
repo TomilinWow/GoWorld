@@ -4,7 +4,7 @@ import {
     ArrowSmallLeftIcon,
     ChartBarIcon,
     CpuChipIcon,
-    FaceSmileIcon
+    FaceSmileIcon, HomeIcon
 } from "@heroicons/react/24/solid";
 import Cookie from "js-cookie";
 import {COOKIES} from "../../services/login_service";
@@ -14,10 +14,11 @@ import {setCurrentPage} from "../../store/slices/page/pageSlice";
 import {GetStaticProps} from "next";
 
 const menus = [
-    {id: 0, title: "Dashboard", link: "/dashboard", icon: <AdjustmentsHorizontalIcon className="h-6 w-6 bg-light-white"/>},
-    {id: 1, title: "Статистика", link: "/statistics", icon: <ChartBarIcon className="h-6 w-6 bg-light-white"/>},
-    {id: 2, title: "Операции", link: "/operations", icon: <CpuChipIcon className="h-6 w-6 bg-light-white"/>},
-    {id: 3, title: "Выйти", link: "/login", icon: <ArrowLeftOnRectangleIcon className="h-6 w-6 bg-light-white"/>, gap: true },
+    {id: 0, title: "Главная", link: "/home", icon: <HomeIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 1, title: "Дашборд", link: "/dashboard", icon: <AdjustmentsHorizontalIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 2, title: "Статистика", link: "/statistics", icon: <ChartBarIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 3, title: "Операции", link: "/operations", icon: <CpuChipIcon className="h-6 w-6 bg-light-white"/>},
+    {id: 4, title: "Выйти", link: "/login", icon: <ArrowLeftOnRectangleIcon className="h-6 w-6 bg-light-white"/>, gap: true },
 ];
 
 interface NavbarProps {
@@ -42,7 +43,7 @@ const Navbar:FC<NavbarProps> = () => {
             <div
                 className={` ${
                     open ? "w-72" : "w-20 "
-                } bg-yellow-gun h-screen p-5  pt-8 relative duration-300`}
+                } bg-yellow-gun p-5  pt-8 relative duration-300`}
             >
                 <div>
                     <ArrowSmallLeftIcon className={`absolute cursor-pointer -right-3 top-10 w-6 h-6 border-dark-purple
@@ -71,9 +72,10 @@ const Navbar:FC<NavbarProps> = () => {
                     {menus.map((Menu, index) => (
                         <li
                             key={index}
-                            className={`flex  rounded-md p-2 cursor-pointer text-black hover:bg-primary text-sm items-center gap-x-4 
+                            style={{}}
+                            className={`flex rounded-md p-2 cursor-pointer text-black hover:text-opacity-30 text-sm items-center gap-x-4 
                             ${Menu.gap ? "mt-9" : "mt-2"} ${
-                                index === currentPage && "bg-slate-50"
+                                index === currentPage && "bg-slate-50 hover:bg-opacity-70"
                             } `}
                             onClick={() => {
                                 if (Menu.title === 'Выйти') logout()
@@ -84,7 +86,7 @@ const Navbar:FC<NavbarProps> = () => {
                             }}
                         >
                             {Menu.icon}
-                            <span className={`${!open && "hidden"} origin-left hover:text-slate-600 duration-200 text-black text-sm`}>
+                            <span className={`${!open && "hidden"} origin-left hover:bg-opacity-70 duration-200 text-black text-sm`}>
                                 {Menu.title}
                             </span>
                         </li>

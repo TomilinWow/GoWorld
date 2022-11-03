@@ -56,7 +56,7 @@ function Page() {
                     <div className="my-4">
                         <div className="my-4">
                             <Link href="/signup">
-                                <a>Create account?</a>
+                                Create account?
                             </Link>
                         </div>
                     </div>
