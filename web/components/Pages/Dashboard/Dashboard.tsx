@@ -1,6 +1,7 @@
 import React from 'react';
 import Widget from "./Widget";
 import {CreditCardIcon, GiftIcon, HandThumbDownIcon, UserPlusIcon} from "@heroicons/react/24/solid";
+import WidgetSales from "./WidgetSales/WidgetSales";
 
 const Dashboard = () => {
     return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
                         icon={<HandThumbDownIcon className="self-center w-9 h-9 rounded-full text-pink-500"/>} iconBgColor='bg-pink-100'/>
                 <Widget title="Новые пользователи" value={"+100"}
                         icon={<UserPlusIcon className="self-center w-9 h-9 rounded-full text-indigo-500"/>} iconBgColor='bg-indigo-100'/>
+                <WidgetSales/>
             </div>
         </div>
 

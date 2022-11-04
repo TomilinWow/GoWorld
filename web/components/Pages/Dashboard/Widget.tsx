@@ -33,9 +33,6 @@ const Widget: FC<WidgetProps> = ({title, icon, value, iconBgColor}) => {
 
                     <h2 className="self-center text-3xl">{value}</h2>
                 </div>
-                <div className="px-6 pb-6">
-                    <Link className="hover:text-indigo-500 text-sm" href="#">Подробнее...</Link>
-                </div>
             </div>
         </div>
 
