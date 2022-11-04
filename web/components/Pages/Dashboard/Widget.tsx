@@ -4,14 +4,15 @@ import Link from "next/link";
 interface WidgetProps {
     title: string,
     icon: any,
-    value: number
+    value: number | string,
+    iconBgColor: string
 }
 
-const Widget: FC<WidgetProps> = ({title, icon, value}) => {
+const Widget: FC<WidgetProps> = ({title, icon, value, iconBgColor}) => {
     return (
         <div className="flex-shrink max-w-full px-4 w-full sm:w-1/2 lg:w-1/4 mb-6">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg h-full">
-                <div className="pt-6 px-6 relative text-sm font-semibold">
+                <div className="pt-6 px-6 relative text-sm font-semibold flex flex-row justify-between">
                     {title}
                     <div className="ltr:float-right rtl:float-left text-green-500">
                         +12%
@@ -26,7 +27,7 @@ const Widget: FC<WidgetProps> = ({title, icon, value}) => {
                     </div>
                 </div>
                 <div className="flex flex-row justify-between px-6 py-4">
-                    <div className="w-14 h-14 rounded-full bg-pink-600">
+                    <div className={`flex justify-center items-center self-center w-14 h-14 rounded-full relative text-center ${iconBgColor}`}>
                         {icon}
                     </div>
 
