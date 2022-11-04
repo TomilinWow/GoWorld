@@ -1,8 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+import {
+    AdjustmentsHorizontalIcon,
+    ArrowLeftOnRectangleIcon,
+    ChartBarIcon,
+    CpuChipIcon,
+    HomeIcon
+} from "@heroicons/react/24/solid";
+import React from "react";
 
 export type AuthState = {
     currentPage: number | null;
-};
+
+}
 
 const initialState: AuthState = {
     currentPage: null,
